@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
 import { parseScript } from "esprima";
 import PieChart from "./PieChart";
-//import html2pdf from "html2pdf.js";
+//import { html2pdf }from "html2pdf";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 //import { saveAs } from "file-saver";
+//import 'html2pdf.js';
 
 const Report = ({ code, statement, decision, condition, mcdc }) => {
     const [TotalFunctions, setTotalFunctions] = useState(0);
@@ -40,7 +41,7 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
             const imgWidth = canvas.width;
             const imgHeight = canvas.height;
             const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-            const imgX = (pdfWidth - imgWidth * ratio) / 2;
+            const imgX = (pdfWidth - imgWidth * ratio) / 1.5;
             const imgY = 30;
             pdf.addImage(
                 imgData,
@@ -364,7 +365,7 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
 
     return (
         <>
-            <h1>Report</h1>
+            <h1 style={{textAlign:'center', marginTop:'50px'}}>Report</h1>
             <button className="btn btn-primary mt-3 mb-3" onClick={downloadPDF}>
                 Download PDF
             </button>
