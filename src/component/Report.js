@@ -16,8 +16,7 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
   const [TotalCondition, setTotalCondition] = useState(0);
   const [CoveredCondition, setCoveredCondition] = useState(0);
 
-  const pdfRef = useRef();
-  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  const { toPDF, targetRef } = usePDF({ filename: "Report.pdf" });
 
   const generatePieChartData = (covered, notCovered) => {
     return {
