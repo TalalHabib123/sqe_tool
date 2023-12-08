@@ -1,9 +1,6 @@
 import React, { useState, useRef } from "react";
 import { parseScript } from "esprima";
 import PieChart from "./PieChart";
-//import { html2pdf }from "html2pdf";
-import html2canvas from "html2canvas";
-import jsPDF from "jspdf";
 import { usePDF } from "react-to-pdf";
 
 const Report = ({ code, statement, decision, condition, mcdc }) => {
