@@ -686,8 +686,8 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
                     })}
                 <hr />
                 <h4 className="mt-5">MCDC Coverage Test Suites</h4>
-                {condition.Test_Cases &&
-                    condition.Test_Cases.map((element, index) => {
+                {mcdc.Test_Cases &&
+                    mcdc.Test_Cases.map((element, index) => {
                         return (
                             <>
                                 {!element.Message && (
