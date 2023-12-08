@@ -4,6 +4,7 @@ import PieChart from "./PieChart";
 //import html2pdf from "html2pdf.js";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { usePDF } from "react-to-pdf";
 
 const Report = ({ code, statement, decision, condition, mcdc }) => {
   const [TotalFunctions, setTotalFunctions] = useState(0);
@@ -16,6 +17,7 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
   const [CoveredCondition, setCoveredCondition] = useState(0);
 
   const pdfRef = useRef();
+  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
 
   const generatePieChartData = (covered, notCovered) => {
     return {
@@ -27,30 +29,6 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
         },
       ],
     };
-  };
-
-  const downloadPDF = () => {
-    const input = pdfRef.current;
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF("p", "mm", "a4", true);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = pdf.internal.pageSize.getHeight();
-      const imgWidth = canvas.width;
-      const imgHeight = canvas.height;
-      const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
-      const imgX = (pdfWidth - imgWidth * ratio) / 2;
-      const imgY = 30;
-      pdf.addImage(
-        imgData,
-        "PNG",
-        imgX,
-        imgY,
-        imgWidth * ratio,
-        imgHeight * ratio
-      );
-      pdf.save("Report.pdf");
-    });
   };
 
   function extractCodeSegments(code) {
@@ -364,10 +342,10 @@ const Report = ({ code, statement, decision, condition, mcdc }) => {
   return (
     <>
       <h1>Report</h1>
-      <button className="btn btn-primary mt-3 mb-3" onClick={downloadPDF}>
+      <button className="btn btn-primary mt-3 mb-3" onClick={() => toPDF()}>
         Download PDF
       </button>
-      <div id="pdf-content" ref={pdfRef}>
+      <div id="pdf-content" ref={targetRef}>
         <>
           <RenderCode />
         </>
